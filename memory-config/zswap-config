@@ -1,0 +1,106 @@
+# FILE PATH: /etc/default/zswap
+# zswap Configuration for Memory Optimization
+# Provides compression cache layer between ZRAM and traditional swap
+
+# Enable zswap
+# Y = Enable zswap compression cache
+# N = Disable zswap
+ZSWAP_ENABLED=Y
+
+# Compression algorithm for zswap
+# lz4    = Fast compression, good for real-time workloads (recommended)
+# zstd   = Better compression ratio, slightly more CPU usage
+# lzo    = Alternative fast compressor
+# deflate = Higher compression ratio, more CPU intensive
+ZSWAP_COMPRESSOR=lz4
+
+# Memory allocator for zswap
+# z3fold = Better compression efficiency, supports up to 3 pages per allocation
+# zbud   = Simpler allocator, supports up to 2 pages per allocation (more stable)
+# zsmalloc = Most efficient for small objects (if available)
+ZSWAP_ZPOOL=z3fold
+
+# Maximum percentage of RAM to use for zswap pool
+# 20-30% is recommended for game servers
+# Higher values provide more cache but use more RAM
+# Lower values preserve more RAM for applications
+ZSWAP_MAX_POOL_PERCENT=25
+
+# Accept same-value filled pages
+# Y = Store pages filled with the same value efficiently
+# N = Don't optimize for same-value pages
+ZSWAP_SAME_FILLED_PAGES_ENABLED=Y
+
+# ============================================================================
+# ADVANCED CONFIGURATION OPTIONS
+# ============================================================================
+
+# Acceptance threshold percentage
+# Controls when zswap accepts pages based on compression ratio
+# Default: 90 (accept if compressed size is <90% of original)
+# ZSWAP_ACCEPT_THRESHOLD_PERCENT=90
+
+# Enable/disable zswap writeback to backing swap device
+# Y = Allow writing compressed pages to disk swap when pool is full
+# N = Reject new pages when pool is full
+# ZSWAP_WRITEBACK_ENABLED=Y
+
+# ============================================================================
+# GRUB CONFIGURATION PARAMETERS
+# ============================================================================
+# These parameters should be added to GRUB_CMDLINE_LINUX_DEFAULT in /etc/default/grub:
+#
+# zswap.enabled=1
+# zswap.compressor=lz4
+# zswap.zpool=z3fold
+# zswap.max_pool_percent=25
+# zswap.same_filled_pages_enabled=1
+#
+# After modifying GRUB configuration, run: update-grub
+#
+# ============================================================================
+# RUNTIME CONFIGURATION
+# ============================================================================
+# zswap can also be configured at runtime via /sys/module/zswap/parameters/
+# Example commands:
+#
+# echo Y > /sys/module/zswap/parameters/enabled
+# echo lz4 > /sys/module/zswap/parameters/compressor
+# echo z3fold > /sys/module/zswap/parameters/zpool
+# echo 25 > /sys/module/zswap/parameters/max_pool_percent
+#
+# ============================================================================
+# MONITORING ZSWAP
+# ============================================================================
+# Check zswap status:
+# cat /sys/module/zswap/parameters/enabled
+#
+# View zswap statistics (if debugfs is mounted):
+# cat /sys/kernel/debug/zswap/*
+#
+# Monitor zswap pool usage:
+# grep -r . /sys/kernel/debug/zswap/ 2>/dev/null
+#
+# ============================================================================
+# PERFORMANCE CONSIDERATIONS
+# ============================================================================
+#
+# Compressor selection impact:
+# - lz4: ~3-5% CPU overhead, 2-3x compression ratio
+# - zstd: ~5-8% CPU overhead, 3-4x compression ratio  
+# - lzo: ~3-5% CPU overhead, 2-2.5x compression ratio
+#
+# Allocator selection impact:
+# - z3fold: Better memory efficiency, slightly more CPU overhead
+# - zbud: Lower CPU overhead, less memory efficient
+#
+# Pool size impact:
+# - Larger pools: More cache hits, less disk I/O, more RAM usage
+# - Smaller pools: More RAM for applications, more cache misses
+#
+# Optimal settings for game servers:
+# - Compressor: lz4 (balance of speed and compression)
+# - Allocator: z3fold (better memory efficiency)
+# - Pool size: 20-30% (balance between cache and application memory)
+#
+# ============================================================================

@@ -1,0 +1,72 @@
+# FILE PATH: /etc/default/zramswap
+# ZRAM Configuration for Memory Optimization
+# This creates a 10 GB compressed swap in RAM with highest priority
+
+# Enable ZRAM swap
+# Set to false to disable ZRAM without uninstalling
+ENABLED=true
+
+# ZRAM size configuration
+# 10G = 10 GB (adjust based on your system's RAM)
+# Recommended: 25-50% of total RAM for game servers
+# Examples: 4G, 8G, 10G, 16G
+SIZE=10G
+
+# Compression algorithm
+# lz4    = Fastest compression, good ratio (recommended for game servers)
+# lzo    = Fast compression, slightly better ratio than lz4
+# zstd   = Best compression ratio, slower (good for memory-constrained systems)
+# lz4hc  = Better compression than lz4, slower
+ALGO=lz4
+
+# Swap priority (0-32767, higher = used first)
+# 100 = Highest priority (ZRAM used before other swap)
+# This ensures ZRAM is used before zswap and traditional swap
+PRIORITY=100
+
+# Number of ZRAM devices
+# 1 = Single device (recommended for most setups)
+# Multiple devices can be used for parallel compression on multi-core systems
+NRDEVICES=1
+
+# Additional ZRAM parameters (advanced configuration)
+# Uncomment and modify as needed
+
+# Maximum number of pages that can be stored in ZRAM
+# Leave empty for automatic calculation based on SIZE
+# MAX_PAGES=
+
+# Memory limit for ZRAM device (in bytes)
+# Leave empty for no limit
+# MEM_LIMIT=
+
+# Writeback device for ZRAM (requires kernel 4.14+)
+# Allows ZRAM to write cold pages to storage device
+# Leave empty to disable writeback
+# WRITEBACK_DEV=
+
+# ============================================================================
+# CONFIGURATION NOTES
+# ============================================================================
+#
+# ZRAM creates compressed swap space in RAM, providing:
+# - Faster swap access than disk-based swap
+# - Memory compression to effectively increase available RAM
+# - No disk I/O for swap operations
+#
+# Optimal size guidelines:
+# - Systems with 8GB+ RAM: 25-50% of total RAM
+# - Systems with 4-8GB RAM: 50-75% of total RAM  
+# - Systems with <4GB RAM: 75-100% of total RAM
+#
+# Algorithm selection:
+# - lz4: Best balance of speed and compression for game servers
+# - zstd: Use if memory is more critical than CPU usage
+# - lzo: Alternative to lz4, similar performance
+#
+# Priority explanation:
+# - 100: ZRAM (fastest, used first)
+# - 50-90: zswap cache layer (medium speed)
+# - 10: Traditional disk swap (slowest, used last)
+#
+# ============================================================================
