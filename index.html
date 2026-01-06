@@ -1,436 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shivnath Dey</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="memory-config/assets/style.css" />
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Morado Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              border: "hsl(var(--border))",
+              input: "hsl(var(--input))",
+              ring: "hsl(var(--ring))",
+              background: "hsl(var(--background))",
+              foreground: "hsl(var(--foreground))",
+              primary: {
+                DEFAULT: "hsl(var(--primary))",
+                foreground: "hsl(var(--primary-foreground))",
+              },
+              secondary: {
+                DEFAULT: "hsl(var(--secondary))",
+                foreground: "hsl(var(--secondary-foreground))",
+              },
+              destructive: {
+                DEFAULT: "hsl(var(--destructive))",
+                foreground: "hsl(var(--destructive-foreground))",
+              },
+              muted: {
+                DEFAULT: "hsl(var(--muted))",
+                foreground: "hsl(var(--muted-foreground))",
+              },
+              accent: {
+                DEFAULT: "hsl(var(--accent))",
+                foreground: "hsl(var(--accent-foreground))",
+              },
+              popover: {
+                DEFAULT: "hsl(var(--popover))",
+                foreground: "hsl(var(--popover-foreground))",
+              },
+              card: {
+                DEFAULT: "hsl(var(--card))",
+                foreground: "hsl(var(--card-foreground))",
+              },
+            },
+            borderRadius: {
+              lg: "var(--radius)",
+              md: "calc(var(--radius) - 2px)",
+              sm: "calc(var(--radius) - 4px)",
+            },
+            maskImage: {
+              'radial-gradient': 'radial-gradient(var(--tw-gradient-stops))',
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 240 10% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 240 10% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 10% 3.9%;
+        --primary: 240 5.9% 10%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 240 4.8% 95.9%;
+        --secondary-foreground: 240 5.9% 10%;
+        --muted: 240 4.8% 95.9%;
+        --muted-foreground: 240 3.8% 46.1%;
+        --accent: 240 4.8% 95.9%;
+        --accent-foreground: 240 5.9% 10%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 5.9% 90%;
+        --input: 240 5.9% 90%;
+        --ring: 240 10% 3.9%;
+        --radius: 0.5rem;
+      }
+
+      .dark {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 240 10% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 10% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 240 5.9% 10%;
+        --secondary: 240 3.7% 15.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 240 3.7% 15.9%;
+        --muted-foreground: 240 5% 64.9%;
+        --accent: 240 3.7% 15.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 3.7% 15.9%;
+        --input: 240 3.7% 15.9%;
+        --ring: 240 4.9% 83.9%;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "clsx": "https://aistudiocdn.com/clsx@^2.1.1",
+    "tailwind-merge": "https://aistudiocdn.com/tailwind-merge@^3.4.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.24",
+    "three": "https://aistudiocdn.com/three@^0.181.2",
+    "@react-three/fiber": "https://aistudiocdn.com/@react-three/fiber@^9.4.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "@react-three/drei": "https://aistudiocdn.com/@react-three/drei@^10.7.7",
+    "@radix-ui/react-slot": "https://aistudiocdn.com/@radix-ui/react-slot@^1.2.4",
+    "class-variance-authority": "https://aistudiocdn.com/class-variance-authority@^0.7.1",
+    "@number-flow/react": "https://aistudiocdn.com/@number-flow/react@^0.5.10",
+    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.45.1",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "path": "https://aistudiocdn.com/path@^0.12.7"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
 </head>
-<body>
-  <div id="progress" aria-hidden="true"></div>
-  <header class="site-header">
-    <div class="container nav">
-      <div class="brand">SHIVNATH DEY</div>
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <button class="btn toggle" id="themeToggle" aria-label="Toggle dark mode">🌓</button>
-      </nav>
-    </div>
-  <div class="ticker" role="region" aria-label="Live forex ticker">
-    <div class="ticker-track">
-      <span>EUR/USD ▲ 1.08</span>
-      <span>GBP/JPY ▼ 183.2</span>
-      <span>USD/JPY ▲ 151.1</span>
-      <span>XAU/USD ▲ 2368</span>
-      <span>BTC/USD ▲ 67,450</span>
-      <span>ETH/USD ▼ 3,200</span>
-      <span>US30 ▲ 39,500</span>
-      <span>NAS100 ▼ 17,800</span>
-      <!-- duplicate for seamless loop -->
-      <span>EUR/USD ▲ 1.08</span>
-      <span>GBP/JPY ▼ 183.2</span>
-      <span>USD/JPY ▲ 151.1</span>
-      <span>XAU/USD ▲ 2368</span>
-      <span>BTC/USD ▲ 67,450</span>
-      <span>ETH/USD ▼ 3,200</span>
-      <span>US30 ▲ 39,500</span>
-      <span>NAS100 ▼ 17,800</span>
-    </div>
-  </div>
-  </header>
-
-  <main>
-    <!-- Hero / Banner -->
-    <section id="home" class="hero">
-      <div class="container hero-inner">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="hello">Hello!</p>
-            <h1>I'm <span class="accent">SHIVNATH DEY</span></h1>
-            <h2 class="tagline">A Currency Trading Expert</h2>
-            <div class="typing-wrap">
-              <span id="typing"></span>
-        <div class="stats-grid reveal" aria-label="Key stats">
-          <div class="stat"><div class="num" data-target="3">0</div><div class="label">Years Experience</div></div>
-          <div class="stat"><div class="num" data-target="120">0</div><div class="label">Projects</div></div>
-          <div class="stat"><div class="num" data-target="85">0</div><div class="label">Happy Clients</div></div>
-          <div class="stat"><div class="num" data-target="2500">0</div><div class="label">Trading Hours</div></div>
-        </div>
-              <span class="cursor">|</span>
-            </div>
-            <div class="cta">
-              <a href="#about" class="btn primary tilt reveal">About Me</a>
-              <a href="#contact" class="btn outline tilt reveal">Contact</a>
-            </div>
-          </div>
-          <div class="feature-deck reveal" aria-label="Highlights deck">
-            <div class="fcard tilt">
-              <div class="ficon">📈</div>
-              <div class="ftitle">Smart Signals</div>
-              <div class="fdesc">Price action • Risk mgmt</div>
-            </div>
-            <div class="fcard tilt">
-              <div class="ficon">🤖</div>
-              <div class="ftitle">Algo Trading</div>
-              <div class="fdesc">Backtests • Automation</div>
-            </div>
-            <div class="fcard tilt">
-              <div class="ficon">🖥️</div>
-              <div class="ftitle">Server Admin</div>
-              <div class="fdesc">Hosting • Security</div>
-            </div>
-          </div>
-          <div class="chips reveal" aria-label="Highlights">
-            <span class="chip">Forex Analyst</span>
-            <span class="chip">Algo Trading</span>
-            <span class="chip">Server Admin</span>
-            <span class="chip">Hustler</span>
-          </div>
-        </div>
-      </div>
-      <div class="hero-bg" aria-hidden="true"></div>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title reveal">About Me</h2>
-        <p class="lead reveal">I’m a passionate Forex Market Analyst with over 3 years of experience in algorithmic trading, technical analysis, and market psychology. Currently in 11th grade, I focus on developing trading strategies, risk management, and trading automation. I also have experience in Minecraft server hosting and e-commerce. Always driven by results, I enjoy helping others and mentoring within the trading community.</p>
-
-
-
-        <div class="about-grid">
-          <div class="about-card tilt reveal">
-            <h3>Profile</h3>
-            <ul>
-              <li>CEO, Indian Solution | Forex Enthusiast | Minecraft Content Explorer</li>
-              <li>Domain: Forex Trading, Minecraft Hosting, Digital Marketing</li>
-              <li>Education: 11th Grade</li>
-              <li>Languages: English, Hindi</li>
-              <li>Other Skills: Cloud, Networking, Cybersecurity Basics, VPNs, Proxies, Scripting, System Tweaks, Minecraft Modding, Server Management</li>
-              <li>Interests: Forex Market Trends, Minecraft Builds, Modding, Cybersecurity, Gaming Tech</li>
-            </ul>
-          </div>
-
-          <div class="about-card tilt reveal">
-            <h3>Skills</h3>
-            <div class="skill">
-              <div class="label">Forex Trading</div>
-              <div class="bar"><span style="width:95%"></span></div>
-            </div>
-            <div class="skill">
-              <div class="label">Minecraft Server Hosting & Development</div>
-              <div class="bar"><span style="width:90%"></span></div>
-            </div>
-            <div class="skill">
-              <div class="label">Discord Bot Development</div>
-              <div class="bar"><span style="width:90%"></span></div>
-            </div>
-            <div class="skill">
-              <div class="label">Customer Psychology & Sales</div>
-              <div class="bar"><span style="width:85%"></span></div>
-            </div>
-            <div class="skill">
-              <div class="label">Algorithmic Trading</div>
-              <div class="bar"><span style="width:80%"></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="section alt">
-      <div class="container">
-        <h2 class="section-title reveal">Contact Me</h2>
-        <div class="contact-grid">
-          <div class="contact-card tilt reveal">
-            <div class="contact-label">Address</div>
-            <div class="contact-value">Maharashtra, India</div>
-          </div>
-          <div class="contact-card tilt reveal">
-            <div class="contact-label">Email</div>
-            <div class="contact-value"><a href="mailto:shivnathdey1@gmail.com">shivnathdey1@gmail.com</a>
-              <button class="copy" data-copy="shivnathdey1@gmail.com" aria-label="Copy email">📋</button>
-            </div>
-          </div>
-          <div class="contact-card tilt reveal">
-            <div class="contact-label">Official Email</div>
-            <div class="contact-value"><a href="mailto:indiansolutionofficial@gmail.com">indiansolutionofficial@gmail.com</a>
-              <button class="copy" data-copy="indiansolutionofficial@gmail.com" aria-label="Copy official email">📋</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Shivnath Dey • All rights reserved</p>
-    </div>
-  </footer>
-
-  <script>
-    // Typing animation
-    const phrases = ["Trader", "Entrepreneur", "Hustler"];
-    const el = document.getElementById('typing');
-    const cursor = document.querySelector('.cursor');
-    let i = 0, j = 0, deleting = false;
-
-    function type() {
-      const word = phrases[i];
-      if (!deleting) {
-        el.textContent = word.slice(0, j++);
-        if (j > word.length) { deleting = true; setTimeout(type, 900); return; }
-      } else {
-        el.textContent = word.slice(0, j--);
-        if (j < 0) { deleting = false; i = (i + 1) % phrases.length; setTimeout(type, 400); return; }
-      }
-      setTimeout(type, deleting ? 60 : 120);
-    }
-    type();
-
-    // Blink cursor
-    setInterval(() => cursor.classList.toggle('hide'), 500);
-
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Theme toggle with memory
-    const toggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if ((savedTheme === 'dark') || (!savedTheme && prefersDark)) {
-      document.documentElement.classList.add('dark');
-    }
-    if (toggle) {
-      toggle.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-      });
-    }
-
-    // Intersection Observer for scroll reveal
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in-view');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.15 }) : null;
-    if (io) { revealEls.forEach(el => io.observe(el)); } else { revealEls.forEach(el => el.classList.add('in-view')); }
-
-    // Lightweight 3D tilt on hover (disabled on touch and reduced motion)
-    function initTilt() {
-      const coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (coarse || reduce) return;
-      const tiltEls = document.querySelectorAll('.tilt');
-      tiltEls.forEach(el => {
-        let raf = null;
-        function onMove(e) {
-          const r = el.getBoundingClientRect();
-          const cx = r.left + r.width / 2;
-          const cy = r.top + r.height / 2;
-          const dx = (e.clientX - cx) / (r.width / 2);
-          const dy = (e.clientY - cy) / (r.height / 2);
-          const rotX = Math.max(-12, Math.min(12, -dy * 10));
-          const rotY = Math.max(-14, Math.min(14, dx * 12));
-          if (raf) cancelAnimationFrame(raf);
-          raf = requestAnimationFrame(() => {
-            el.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
-          });
-        }
-        function onLeave() {
-          if (raf) cancelAnimationFrame(raf);
-          el.style.transition = 'transform .35s cubic-bezier(.2,.6,.2,1)';
-          el.style.transform = 'perspective(900px) rotateX(0) rotateY(0)';
-          setTimeout(() => (el.style.transition = ''), 400);
-        }
-        el.addEventListener('mousemove', onMove);
-        el.addEventListener('mouseleave', onLeave);
-      });
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTilt);
-    } else {
-      initTilt();
-    }
-
-    // Auto-detect and load profile picture without editing code
-    (function loadProfileImage() {
-      const container = document.querySelector('.avatar');
-      if (!container) return;
-      const placeholder = container.querySelector('.avatar-placeholder');
-      const hint = document.querySelector('.avatar-hero .hint');
-      const base = 'assets/profile';
-      const exts = ['webp','jpg','jpeg','png','gif'];
-      let idx = 0;
-      function tryNext() {
-        if (idx >= exts.length) return;
-        const src = `${base}.${exts[idx++]}`;
-        const img = new Image();
-        img.alt = 'Profile photo';
-        img.onload = () => {
-          if (placeholder) placeholder.remove();
-          container.appendChild(img);
-          if (hint) hint.textContent = `Photo loaded: ${src}`;
-        };
-        img.onerror = tryNext;
-        img.src = src;
-      }
-      tryNext();
-    })();
-
-    // Scroll progress bar
-    (function(){
-      const bar = document.getElementById('progress');
-      if (!bar) return;
-      function upd(){
-        const h = document.documentElement;
-        const max = h.scrollHeight - h.clientHeight;
-        const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
-        bar.style.width = pct + '%';
-      }
-      window.addEventListener('scroll', upd, { passive: true });
-      window.addEventListener('resize', upd);
-      upd();
-    })();
-
-    // Spotlight cursor on hero
-    (function(){
-      const coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (coarse || reduce) return;
-      const hero = document.querySelector('.hero');
-      if (!hero) return;
-      let raf=null;
-      function set(e){
-        const r = hero.getBoundingClientRect();
-        const x = ((e.clientX - r.left) / r.width) * 100;
-        const y = ((e.clientY - r.top) / r.height) * 100;
-        if (raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(()=>{
-          hero.style.setProperty('--mx', x + '%');
-          hero.style.setProperty('--my', y + '%');
-        });
-      }
-      hero.addEventListener('mousemove', set);
-      hero.addEventListener('mouseleave', ()=>{
-        hero.style.removeProperty('--mx');
-        hero.style.removeProperty('--my');
-      });
-    })();
-
-    // Count-up stats on reveal
-    (function(){
-      const els = document.querySelectorAll('.stat .num');
-      if (!els.length) return;
-      function animate(el){
-        const target = +el.getAttribute('data-target');
-        const start = performance.now();
-        const dur = 1200;
-        function step(t){
-          const p = Math.min(1, (t - start) / dur);
-          const val = Math.floor(p * target);
-          el.textContent = val.toLocaleString();
-          if (p < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      }
-      const obs = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
-        entries.forEach(en=>{ if (en.isIntersecting) { animate(en.target); obs.unobserve(en.target); } });
-      }, { threshold: 0.4 }) : null;
-      if (obs) els.forEach(el=>obs.observe(el)); else els.forEach(animate);
-    })();
-
-    // Command palette (Ctrl/Cmd + K)
-    (function(){
-      const pal = document.getElementById('cmdk');
-      const input = document.getElementById('cmdk-input');
-      if (!pal || !input) return;
-      function items(){ return Array.from(pal.querySelectorAll('.cmdk-list li')); }
-      let idx = 0;
-      function open(){ pal.classList.remove('hidden'); pal.setAttribute('aria-hidden','false'); input.value=''; input.focus(); highlight(0); }
-      function close(){ pal.classList.add('hidden'); pal.setAttribute('aria-hidden','true'); }
-      function highlight(i){ idx = i; items().forEach((li,k)=> li.classList.toggle('active', k===i)); }
-      function run(action){ if(!action) return; const [type,arg] = action.split(':');
-        switch(type){
-          case 'go':
-            location.hash = arg;
-            break;
-          case 'copy':
-            copyText(arg === 'email' ? 'shivnathdey1@gmail.com' : 'indiansolutionofficial@gmail.com');
-            break;
-          case 'theme':
-            document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-            break;
-        }
-        close();
-      }
-      document.addEventListener('keydown', (e)=>{
-        const k = e.key.toLowerCase();
-        if ((e.ctrlKey||e.metaKey) && k==='k') { e.preventDefault(); open(); }
-        else if (k==='escape' && !pal.classList.contains('hidden')) close();
-      });
-      pal.addEventListener('click', (e)=>{ if (e.target === pal) close(); });
-      input.addEventListener('keydown', (e)=>{
-        if (e.key === 'ArrowDown') { e.preventDefault(); highlight(Math.min(idx+1, items().length-1)); }
-        else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(Math.max(idx-1, 0)); }
-        else if (e.key === 'Enter') { const li = items()[idx]; if (li) run(li.dataset.action); }
-      });
-      items().forEach((li,i)=>{ li.addEventListener('mouseenter', ()=>highlight(i)); li.addEventListener('click', ()=>run(li.dataset.action)); });
-    })();
-
-    // Copy buttons + toast
-    (function(){
-      document.querySelectorAll('button.copy').forEach(btn=>{
-        btn.addEventListener('click', ()=> copyText(btn.dataset.copy));
-      });
-    })();
-    function copyText(text){
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(()=> toast('Copied: ' + text));
-      } else { // fallback
-        const ta = document.createElement('textarea');
-        ta.value = text; document.body.appendChild(ta); ta.select();
-        try { document.execCommand('copy'); toast('Copied: ' + text); } catch(e){}
-        document.body.removeChild(ta);
-      }
-    }
-    let toastTimer;
-    function toast(msg){
-      const t = document.getElementById('toast'); if (!t) return;
-      t.textContent = msg; t.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=> t.classList.remove('show'), 1600);
-    }
-
-
-  </script>
-  <div id="cmdk" class="cmdk hidden" aria-hidden="true" role="dialog" aria-label="Command Palette">
-    <div class="cmdk-panel">
-      <input id="cmdk-input" type="text" placeholder="Type a command... (Go: home/about/contact, copy email, theme)" aria-label="Command input" />
-      <ul class="cmdk-list" role="listbox">
-        <li data-action="go:home">Go to Home</li>
-        <li data-action="go:about">Go to About</li>
-        <li data-action="go:contact">Go to Contact</li>
-        <li data-action="copy:email">Copy Email</li>
-        <li data-action="copy:official">Copy Official Email</li>
-        <li data-action="theme:toggle">Toggle Theme</li>
-      </ul>
-    </div>
-  </div>
-  <div id="toast" aria-live="polite" aria-atomic="true"></div>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
 </body>
 </html>
-
